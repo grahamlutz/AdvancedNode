@@ -91,7 +91,6 @@ describe('When not logged in', async () => {
   ];
 
   test('User cannot do blog things', async () => {
-
     const results = await page.execRequests(actions);
 
     for (let result of results) {
