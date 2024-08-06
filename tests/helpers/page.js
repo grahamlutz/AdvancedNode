@@ -5,17 +5,36 @@ const userFactory = require('../factories/userFactory');
 class Page {
   static async build() {
     const browser = await pup.launch({
-      headless: false
+      headless: false,
+      // args: ['--no-sandbox']
     });
 
     const page = await browser.newPage();
-    await page.setExtraHTTPHeaders({ 'Accept-Language': 'en-US,en;q=0.9' });
-    await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36');
+    // await page.setExtraHTTPHeaders({ 'Accept-Language': 'en-US,en;q=0.9' });
+    // await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36');
     const customPage = new Page(page);
     
     return new Proxy(customPage, {
-      get: function(target, property) {
-        return customPage[property] || browser[property] || page[property];
+      get: (target, property, receiver) => {
+        if (target[property]) {
+          return target[property];
+        }
+
+        let value = browser[property];
+        if (value instanceof Function) {
+          return function (...args) {
+            return value.apply(this === receiver ? browser : this, args);
+          };
+        }
+
+        value = page[property];
+        if (value instanceof Function) {
+          return function (...args) {
+            return value.apply(this === receiver ? page : this, args);
+          };
+        }
+
+        return value;
       }
     });
   }
@@ -30,8 +49,8 @@ class Page {
     
     await this.page.setCookie({ name: 'session', value: session });
     await this.page.setCookie({ name: 'session.sig', value: sig });
-    await this.page.goto('localhost:3000/blogs');
-    await this.page.waitFor('a[href="/auth/logout"]');
+    await this.page.goto('http://localhost:3000/blogs');
+    await this.page.waitForSelector('a[href="/auth/logout"]');
   }
 
   async getContentsOf(selector) {

@@ -5,52 +5,52 @@ let page;
 beforeEach(async () => {
   page = await Page.build();
 
-  await page.goto('localhost:3000');
+  await page.goto('http://localhost:3000');
 });
 
 afterEach(async () => {
   await page.close();
 });
 
-describe('When logged in', async () => {
+describe('When logged in', () => {
   beforeEach(async () => {
     await page.login();
     await page.click('a.btn-floating');
   });
 
   test('shows logout button', async () => {
-    await page.waitFor('a[href="/auth/logout"]');
+    await page.waitForSelector('a[href="/auth/logout"]');
     const text = await page.getContentsOf('a[href="/auth/logout"]');
   
     expect(text).toMatch('Logout');
   });
 
   test( 'can see blog create form', async () => {
-    await page.waitFor('form label');
+    await page.waitForSelector('form label');
     const label = await page.getContentsOf('form label');
 
     expect(label).toEqual('Blog Title');
   });
 
-  describe('And using VALID inputs', async () => {
+  describe('And using VALID inputs', () => {
     beforeEach(async () => { 
-      await page.waitFor('.title input');
+      await page.waitForSelector('.title input');
       await page.type('.title input', 'My Test Title');
       await page.type('.content input', 'My test content');
       await page.click('form button');
     });
 
     test('Submitting takes user to review screen', async () => {
-      await page.waitFor('h5');
+      await page.waitForSelector('h5');
       const text = await page.getContentsOf('h5');
 
       expect(text).toEqual('Please confirm your entries');
     });
 
     test('Submitting then saving adds blog to "Blog Index" page', async () => {
-      await page.waitFor('button.green');
+      await page.waitForSelector('button.green');
       await page.click('button.green');
-      await page.waitFor('.card');
+      await page.waitForSelector('.card');
 
       const title = await page.getContentsOf('.card-title');
       const content = await page.getContentsOf('p');
@@ -60,11 +60,11 @@ describe('When logged in', async () => {
     });
   });
 
-  describe('And using INVALID inputs', async () => {
+  describe('And using INVALID inputs', () => {
     beforeEach(async () => { 
-      await page.waitFor('form button');
+      await page.waitForSelector('form button');
       await page.click('form button');
-      await page.waitFor('.title .red-text');
+      await page.waitForSelector('.title .red-text');
     });
 
     test('the form shows an error message', async () => {
@@ -77,7 +77,7 @@ describe('When logged in', async () => {
   });
 });
 
-describe('When not logged in', async () => {
+describe('When not logged in', () => {
   const actions = [
     {
       method: 'post',
