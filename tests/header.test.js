@@ -14,6 +14,7 @@ afterEach(async () => {
 
 test('The header has the correct text', async () => {
   console.log('url: ', page.url());
+  await page.content().then(content => console.log('content: ', content));
   await page.waitForSelector('a.brand-logo');
   const text = await page.getContentsOf('a.brand-logo');
 
