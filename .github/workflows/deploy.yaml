@@ -57,11 +57,11 @@ jobs:
         run: |
           nohup npm run start &
           sleep 3
-      - name: Run Tests
-        run: |
-          Xvfb -ac :99 -screen 0 1280x1024x16 & export DISPLAY=:99
-          npm run test
       - name: Network debug
         run: |
           netstat -tuln
           curl -v http://localhost:3000
+      - name: Run Tests
+        run: |
+          Xvfb -ac :99 -screen 0 1280x1024x16 & export DISPLAY=:99
+          npm run test
