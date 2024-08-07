@@ -8,7 +8,7 @@ class Page {
       headless: false,
       args: ['--no-sandbox'],
       ignoreDefaultArgs: ['--disable-extensions'],
-      executablePath: "/usr/bin/chromium-browser",
+      executablePath: "/snap/bin/chromium",
     });
 
     const page = await browser.newPage();
