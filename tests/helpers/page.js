@@ -6,7 +6,7 @@ class Page {
   static async build() {
     const browser = await pup.launch({
       headless: false,
-      env: { DISPLAY: ":10.0" }
+      // env: { DISPLAY: ":10.0" }
     });
 
     const page = await browser.newPage();
