@@ -7,7 +7,8 @@ class Page {
     const browser = await pup.launch({
       headless: false,
       args: ['--no-sandbox'],
-      ignoreDefaultArgs: ['--disable-extensions']
+      ignoreDefaultArgs: ['--disable-extensions'],
+      executablePath: "/usr/bin/chromium-browser",
     });
 
     const page = await browser.newPage();
