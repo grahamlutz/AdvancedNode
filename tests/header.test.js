@@ -4,7 +4,7 @@ let page;
 
 beforeEach(async () => {
   page = await Page.build();
-  console.log(page.browser());
+
   await page.goto('http://localhost:3000');
 });
 
@@ -13,7 +13,7 @@ afterEach(async () => {
 })
 
 test('The header has the correct text', async () => {
-  console.log('page: ', page);
+  console.log('url: ', page.url());
   await page.waitForSelector('a.brand-logo');
   const text = await page.getContentsOf('a.brand-logo');
 
