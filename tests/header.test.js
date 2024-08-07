@@ -13,6 +13,7 @@ afterEach(async () => {
 })
 
 test('The header has the correct text', async () => {
+  console.log('page: ', page);
   await page.waitForSelector('a.brand-logo');
   const text = await page.getContentsOf('a.brand-logo');
 
