@@ -5,7 +5,7 @@ const userFactory = require('../factories/userFactory');
 class Page {
   static async build() {
     const browser = await pup.launch({
-      headless: true,
+      headless: false,
       ignoreDefaultArgs: ["--disable-extensions"],
       // timeout: 0,
       // args: ['--no-sandbox', '--disable-setuid-sandbox'],
