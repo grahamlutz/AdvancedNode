@@ -12,7 +12,7 @@ jobs:
  
     strategy:
       matrix:
-        node-version: ["18.15.0"]
+        node-version: ["22.2.0"]
  
     services:
       mongodb:
