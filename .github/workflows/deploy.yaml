@@ -45,7 +45,7 @@ jobs:
       - name: Set DISPLAY
         run: |
           sudo apt-get install xvfb x11-apps x11-xkb-utils libx11-6 libx11-xcb1
-          Xvfb -ac :99 -screen 0 1280x1024x16 & export DISPLAY=:99
+      #    Xvfb -ac :99 -screen 0 1280x1024x16 & export DISPLAY=:99
       # - name: Debug 
       #   run: |
       #     printenv DISPLAY
@@ -58,4 +58,6 @@ jobs:
           nohup npm run start &
           sleep 3
       - name: Run tests
-        run: npm run test
+        run: |
+          Xvfb -ac :99 -screen 0 1280x1024x16 & export DISPLAY=:99
+          npm run test
