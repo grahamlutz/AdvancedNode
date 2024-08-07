@@ -5,7 +5,7 @@ const userFactory = require('../factories/userFactory');
 class Page {
   static async build() {
     const browser = await pup.launch({
-      headless: "new",
+      headless: true,
       ignoreDefaultArgs: ['--disable-extensions']
     });
 
