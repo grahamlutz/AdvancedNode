@@ -6,7 +6,6 @@ class Page {
   static async build() {
     const browser = await pup.launch({
       headless: false,
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
       ignoreDefaultArgs: ['--disable-extensions']
     });
 
