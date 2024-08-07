@@ -26,7 +26,7 @@ jobs:
  
     env:
       NODE_ENV: ci
-      PORT: 5001
+      PORT: 3000
       DISPLAY: :99
  
     steps:
@@ -56,7 +56,7 @@ jobs:
       - name: Start server
         run: |
           nohup npm run start &
-          sleep 10
+          sleep 3
       - name: Run tests
         run: |
           Xvfb -ac :99 -screen 0 1280x1024x16 & export DISPLAY=:99
