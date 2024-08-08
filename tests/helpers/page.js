@@ -8,14 +8,9 @@ class Page {
       headless: 'new',
       ignoreDefaultArgs: ["--disable-extensions"],
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
-      // timeout: 0,
-      // args: ['--no-sandbox', '--disable-setuid-sandbox'],
-      // env: { DISPLAY: ":10.0" }
     });
 
     const page = await browser.newPage();
-    // await page.setExtraHTTPHeaders({ 'Accept-Language': 'en-US,en;q=0.9' });
-    // await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36');
     const customPage = new Page(page);
     
     return new Proxy(customPage, {
