@@ -1,7 +1,5 @@
 # AdvancedNodeStarter
 
-Starting project for a course on Advanced Node @ Udemy
-
 ### Setup
 
 - Run `npm install` in the root of the project to install server dependencies
